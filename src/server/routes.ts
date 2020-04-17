@@ -1,9 +1,26 @@
 import * as express from 'express';
+import { Book } from '../common/types';
 
-const router = express.Router();
+export const router = express.Router();
 
-router.get('/api/hello', (req, res, next) => {
-    res.json('World');
+const books: Book[] = [
+    {
+        id:0,
+        title: "Les fous du roi",
+        author: "Robert Penn Warren"
+    },
+    {
+        id:1,
+        title: "Faust",
+        author: "Johann Wolfgang von Goethe"
+    }
+]
+
+router.get('/books', (req, res, next) => {
+    res.json(books);
 });
 
-export default router;
+router.get('/books/:id', (req: express.Request, res, next) => {
+    const {id} = req.params
+    res.json(id);
+});
