@@ -12,14 +12,14 @@ export const Books = () => {
     },[])
 
     const renderBook = (book: Book) => {
-        const {id, title, author} = book
+        const {isbn, title, authors, status} = book
 
         return (
-            <div className="card bg-light">
+            <div className="card bg-light" key={isbn}>
                 <div className="card-body">
                     <h5 className="card-title">{title}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">{author}</h6>
-                    <a href="#" className="card-link">More</a>
+                    <h6 className="card-subtitle mb-2 text-muted">{authors}</h6>
+                    <span>{status}</span>
                 </div>
             </div>
         ) 
