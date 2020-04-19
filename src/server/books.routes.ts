@@ -1,9 +1,15 @@
 import * as express from 'express';
+import {Request, Response, NextFunction} from 'express';
 import { MongoClient, ObjectID } from "mongodb"
 
-export const router = express.Router();
+export const BooksRouter = express.Router();
 
-router.get('/', (req, res, next) => {
+BooksRouter.use((req: Request, res: Response,next: NextFunction) => {
+    if(req.user) next()
+    else res.redirect('/');
+})
+
+BooksRouter.get('/', (req, res, next) => {
     (async () => {
         const uri = "mongodb+srv://admin:admin@cluster0-txqls.mongodb.net/test?retryWrites=true&w=majority";
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -18,7 +24,7 @@ router.get('/', (req, res, next) => {
     })()
 });
 
-router.get('/:id', (req: express.Request, res, next) => {
+BooksRouter.get('/:id', (req: express.Request, res, next) => {
     const { id } = req.params
     const uri = "mongodb+srv://admin:admin@cluster0-txqls.mongodb.net/test?retryWrites=true&w=majority";
 
